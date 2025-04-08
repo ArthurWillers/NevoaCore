@@ -1,0 +1,54 @@
+/* Define as variáveis, se os componentes estiverem utilizando CSS Custom Properties */
+:root {
+  --bs-primary: #292871;
+}
+
+/* Botões primary */
+.btn-primary {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  /* Aqui você pode definir uma cor ligeiramente mais escura para feedback visual */
+  background-color: #1f1f5f !important;
+  /* cor calculada aproximadamente para o hover */
+  border-color: #1f1f5f !important;
+}
+
+/* Botões outline primary */
+.btn-outline-primary {
+  color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
+  background-color: var(--bs-primary) !important;
+  color: #fff !important;
+  border-color: var(--bs-primary) !important;
+}
+
+/* Fundo primary */
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
+.bg-primary:hover {
+  background-color: #1f1f5f !important;
+}
+
+/* Texto primary */
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.text-primary:hover {
+  color: #1f1f5f !important;
+}
+
+/* Bordas primary */
+.border-primary {
+  border-color: var(--bs-primary) !important;
+}
