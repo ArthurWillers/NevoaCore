@@ -1,4 +1,4 @@
-<footer class="bg-tertiary border-top py-2 fixed-bottom">
+<footer class="border-top py-2 fixed-bottom">
   <div class="container d-flex justify-content-center align-items-center gap-3">
     <span>
       Desenvolvido por: 
@@ -9,9 +9,8 @@
     <span>
       Repositório do projeto:
       <a href="https://github.com/ArthurWillers/NevoaCore" target="_blank" class="text-decoration-none">
-        <i class="bi bi-code-slash"></i> NevoaCore
+        <i class="bi bi-code-slash"></i> NévoaCore
       </a>
     </span>
-    <span class="mb-0">© 2025 NevoaCore. Todos os direitos reservados.</span>
   </div>
 </footer>
