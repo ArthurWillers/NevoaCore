@@ -11,28 +11,16 @@
 </head>
 
 <body>
-
-  <nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="./assets/img/nevoa_logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-        NévoaCore
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex gap-2">
-          <li class="nav-item">
-            <a class="btn btn-outline-primary" href="./pages/register.php">Registrar</a>
-          </li>
-          <li class="nav-item">
-            <a class="btn btn-outline-primary" href="./pages/login.php">Entrar</a>
-          </li>
-        </ul>
-      </div>
+  <div class="container-fluid min-vh-100 text-center text-white bg-primary d-flex flex-column justify-content-center align-items-center">
+    <img src="./assets/img/nevoa_logo.png" alt="NévoaCore Logo" width="120" class="mb-4" />
+    <h1 class="display-4 fw-bold">NévoaCore</h1>
+    <p class="lead">Eu sou a luz que ilumina o caminho</p>
+    <p class="lead">Um núcleo descentralizado para mentes livres</p>
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <a href="./pages/register.php" class="btn btn-outline-light btn-lg">Criar Conta</a>
+      <a href="./pages/login.php" class="btn btn-outline-light btn-lg">Entrar</a>
     </div>
-  </nav>
+  </div>
 
   <?php include './includes/footer.php' ?>
   <?php include './includes/bootstrap_script.php' ?>
