@@ -1,4 +1,4 @@
-<footer class="border-top py-2 fixed-bottom">
+<footer class="border-top py-2 fixed-bottom bg-body-tertiary">
   <div class="container d-flex justify-content-center align-items-center gap-3">
     <span>
       Desenvolvido por: 

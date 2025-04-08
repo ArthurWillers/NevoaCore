@@ -12,7 +12,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-lg border-bottom">
+  <nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="./assets/img/nevoa_logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
