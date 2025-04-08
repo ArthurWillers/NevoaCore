@@ -35,18 +35,11 @@
   background-color: var(--bs-primary) !important;
 }
 
-.bg-primary:hover {
-  background-color: #1f1f5f !important;
-}
-
 /* Texto primary */
 .text-primary {
   color: var(--bs-primary) !important;
 }
 
-.text-primary:hover {
-  color: #1f1f5f !important;
-}
 
 /* Bordas primary */
 .border-primary {
