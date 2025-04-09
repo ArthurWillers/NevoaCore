@@ -32,7 +32,6 @@ CREATE TABLE `user` (
   `username` varchar(255) DEFAULT NULL,
   `password` char(128) DEFAULT NULL,
   `role` set('admin','user') DEFAULT 'user',
-  `profile_image` varchar(255) DEFAULT 'default_img',
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
