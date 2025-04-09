@@ -67,6 +67,7 @@
   <?php include '../includes/footer.php' ?>
   <?php include '../includes/bootstrap_script.php' ?>
   <script src="../assets/js/login.js"></script>
+  <script src="../assets/js/toast.js"></script>
 </body>
 
 </html>

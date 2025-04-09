@@ -19,6 +19,8 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 </head>
 
 <body>
+  <?php include './includes/toast.php' ?>
+
   <div class="container-fluid min-vh-100 text-center text-white bg-primary d-flex flex-column justify-content-center align-items-center">
     <img src="./assets/img/nevoa_logo.png" alt="NévoaCore Logo" width="120" class="mb-4" />
     <h1 class="display-4 fw-bold">NévoaCore</h1>
@@ -32,6 +34,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 
   <?php include './includes/footer.php' ?>
   <?php include './includes/bootstrap_script.php' ?>
+  <script src="./assets/js/toast.js"></script>
 </body>
 
 </html>
