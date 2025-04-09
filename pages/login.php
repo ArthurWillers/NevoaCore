@@ -15,7 +15,7 @@
 <body>
   <?php include '../includes/toast.php' ?>
 
-  <nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary">
+  <nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
         <img src="../assets/img/nevoa_logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
@@ -33,9 +33,40 @@
       </div>
   </nav>
 
+  <div class="container min-vh-100 d-flex align-items-center justify-content-center">
+    <div class="card shadow-lg p-4">
+      <h3 class="text-center mb-4">Login</h3>
+      <form method="POST" action="../actions/login.php">
+
+        <!-- Campo E-mail -->
+        <div class="input-group mb-3">
+          <input type="email" name="email_login" class="form-control" placeholder="Digite seu E-mail" required>
+        </div>
+
+        <!-- Campo Senha -->
+        <div class="input-group">
+          <input id="password_login" type="password" name="password_login" class="form-control" placeholder="Digite sua senha" required>
+          <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('password_login', this)">
+            <i class="bi bi-eye-slash"></i>
+          </button>
+        </div>
+        <div class="form-text">
+          <a href="" class="text-decoration-none">Esqueceu sua senha?</a>
+        </div>
+        <!-- Botão de Login -->
+        <button type="submit" name="login" class="btn btn-primary w-100 mt-3">Entrar</button>
+        <!-- Link para Cadastro -->
+        <div class="text-center mt-3">
+          <span>Ainda não tem uma conta?</span>
+          <a href="./register.php" class="text-decoration-none cursor-pointer">Cadastre-se</a>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <?php include '../includes/footer.php' ?>
   <?php include '../includes/bootstrap_script.php' ?>
+  <script src="../assets/js/login.js"></script>
 </body>
 
 </html>
