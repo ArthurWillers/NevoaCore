@@ -54,7 +54,7 @@
           <a href="" class="text-decoration-none">Esqueceu sua senha?</a>
         </div>
         <!-- Botão de Login -->
-        <button type="submit" name="login" class="btn btn-primary w-100 mt-3">Entrar</button>
+        <button type="submit" name="login" class="btn btn-primary w-100 mt-3" disabled>Entrar</button>
         <!-- Link para Cadastro -->
         <div class="text-center mt-3">
           <span>Ainda não tem uma conta?</span>
