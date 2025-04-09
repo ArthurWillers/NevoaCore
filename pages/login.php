@@ -44,7 +44,7 @@
 
         <div class="input-group">
           <input id="password_login" type="password" name="password_login" class="form-control" placeholder="Digite sua senha" required>
-          <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordVisibility('password_login', this)">
+          <button class="btn btn-outline-secondary" type="button" onclick="toggle_password_visibility('password_login', this)">
             <i class="bi bi-eye-slash"></i>
           </button>
         </div>

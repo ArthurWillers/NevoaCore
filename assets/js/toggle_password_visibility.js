@@ -1,4 +1,4 @@
-function togglePasswordVisibility(inputID, button) {
+function toggle_password_visibility(inputID, button) {
   const input = document.getElementById(inputID);
   if (input.type === "password") {
       input.type = "text";
