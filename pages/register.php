@@ -35,7 +35,7 @@
 
 	<div class="container min-vh-100 d-flex align-items-center justify-content-center">
 		<div class="card shadow-lg p-4">
-			<h3 class="text-center mb-4 squada-one-regular">register</h3>
+			<h3 class="text-center mb-4 squada-one-regular">Cadastro</h3>
 			<form method="POST" action="index.php">
 
 				<div class="input-group mb-3">
@@ -47,7 +47,7 @@
 				</div>
 
 				<div class="input-group mb-3">
-					<input type="password" name="password_register" class="form-control" placeholder="Digite sua senha" required>
+					<input id="password_register" type="password" name="password_register" class="form-control" placeholder="Digite sua senha" required>
 					<button class="btn btn-outline-secondary" type="button"
 						onclick="toggle_password_visibility('password_register', this)">
 						<i class="bi bi-eye-slash"></i>
@@ -55,7 +55,7 @@
 				</div>
 
 				<div class="input-group">
-					<input type="password" name="confirm_password_register" class="form-control" placeholder="Confirme sua senha" required>
+					<input id="confirm_password_register" type="password" name="confirm_password_register" class="form-control" placeholder="Confirme sua senha" required>
 					<button class="btn btn-outline-secondary" type="button"
 						onclick="toggle_password_visibility('confirm_password_register', this)">
 						<i class="bi bi-eye-slash"></i>
