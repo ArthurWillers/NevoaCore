@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_passwor
   }
 
   // Abrir a conexão com o banco de dados
-  include  '../config/db_connection.php';
+  include  '../../config/db_connection.php';
   $conn = open_connection();
 
   // Verificar se o código de verificação existe no banco de dados
