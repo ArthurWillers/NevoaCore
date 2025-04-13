@@ -142,6 +142,7 @@ if (mysqli_num_rows($result) > 0) {
     }
     
     save_mail($mail);
+    $_SESSION['email_recover_password'] = $email;
     $_SESSION['message'] = 'Foi enviado no seu e-mail um código para redefinir sua senha';
     $_SESSION['message_type'] = 'success';
     header('Location: ../../pages/recover/reset_password.php');
