@@ -67,4 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
     header('Location: ../pages/register.php');
     exit();
   }
+} else {
+  session_unset();
+  $_SESSION['message'] = 'Acesso não autorizado';
+  $_SESSION['message_type'] = 'error';
+  header('Location: ../index.php');
+  exit();
 }

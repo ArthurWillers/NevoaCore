@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_login'])) {
 
   // Prepare the SQL statement
   $sql = "SELECT * FROM user WHERE email = ?";
-  
+
   // Execute the SQL statement
   $result = mysqli_execute_query($conn, $sql, [$email]);
 
@@ -56,11 +56,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_login'])) {
     $_SESSION['logged_in'] = false;
     $_SESSION['message'] = 'E-mail ou senha incorretos';
     $_SESSION['message_type'] = 'error';
-    
+
     // Close the database connection
     close_connection($conn);
     header('Location: ../pages/login.php');
     exit();
   }
+} else {
+  session_unset();
+  $_SESSION['message'] = 'Acesso não autorizado';
+  $_SESSION['message_type'] = 'error';
+  header('Location: ../index.php');
+  exit();
 }
-?>
