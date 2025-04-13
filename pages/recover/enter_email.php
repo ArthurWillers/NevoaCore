@@ -21,7 +21,7 @@ if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
 </head>
 
 <body>
-  <?php include '../includes/toast.php' ?>
+  <?php include '../../includes/toast.php' ?>
 
   <nav class="navbar navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
