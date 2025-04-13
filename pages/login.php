@@ -14,6 +14,7 @@
 
 <body>
   <?php include '../includes/toast.php' ?>
+  <?php session_unset();?>
 
   <nav class="navbar navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
@@ -41,7 +42,7 @@
           </button>
         </div>
         <div class="form-text">
-          <a href="" class="text-decoration-none">Esqueceu sua senha?</a>
+          <a href="./recover/enter_email.php" class="text-decoration-none">Esqueceu sua senha?</a>
         </div>
 
         <button type="submit" name="submit_login" class="btn btn-primary w-100 mt-3" disabled>Entrar</button>

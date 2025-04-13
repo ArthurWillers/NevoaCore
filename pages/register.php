@@ -14,6 +14,7 @@
 
 <body>
 	<?php include '../includes/toast.php' ?>
+	<?php session_unset();?>
 
 	<nav class="navbar navbar-dark bg-primary fixed-top">
     <div class="container-fluid">
