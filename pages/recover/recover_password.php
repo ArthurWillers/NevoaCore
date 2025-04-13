@@ -50,7 +50,7 @@
           </div>
           <div id="password_error_message" class="form-text text-danger"></div>
 
-          <button type="submit" name="submit_reset_password" class="btn btn-primary w-100 mt-3" disabled>Redefinir Senha</button>
+          <button type="submit" name="submit_recover_password" class="btn btn-primary w-100 mt-3" disabled>Redefinir Senha</button>
 
           <div class="text-center mt-3">
             <span>Lembrou sua senha?</span>
