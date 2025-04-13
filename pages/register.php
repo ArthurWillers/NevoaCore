@@ -9,7 +9,7 @@
 	<link rel="icon" type="image/x-icon" href="../assets/img/nevoa_logo.png">
 	<?php include '../includes/bootstrap_styles.php' ?>
 	<link rel="stylesheet" href="../assets/css/bootstrap_custom.css">
-	<title>register</title>
+	<title>register - NévoaCore</title>
 </head>
 
 <body>

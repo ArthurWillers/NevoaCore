@@ -18,7 +18,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   <link rel="icon" type="image/x-icon" href="../assets/img/nevoa_logo.png">
   <?php include '../includes/bootstrap_styles.php' ?>
   <link rel="stylesheet" href="../assets/css/bootstrap_custom.css">
-  <title>Dashboard</title>
+  <title>Dashboard - NévoaCore</title>
 </head>
 
 <body>
