@@ -15,23 +15,23 @@
 <body>
 	<?php include '../includes/toast.php' ?>
 
-	<nav class="navbar navbar-expand-lg border-bottom bg-body-tertiary fixed-top">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">
-				<img src="../assets/img/nevoa_logo.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
-				NévoaCore
-			</a>
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarContent">
-				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex gap-2">
-					<li class="nav-item">
-						<a class="btn btn-outline-primary" href="../index.php">Voltar</a>
-					</li>
-				</ul>
-			</div>
-	</nav>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="../assets/img/nevoa_logo.png" alt="Logo" width="35" height="35" class="d-inline-block">
+        <span class="ms-2 align-middle">NévoaCore</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex gap-2">
+          <li class="nav-item">
+            <a class="btn btn-outline-light" href="../index.php">Voltar</a>
+          </li>
+        </ul>
+      </div>
+  </nav>
 
 	<div class="container min-vh-100 d-flex align-items-center justify-content-center">
 		<div class="card shadow-lg p-4">
