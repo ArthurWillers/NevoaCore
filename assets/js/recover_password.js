@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const code_field = document.querySelector('input[name="verification_code"]');
   const new_password_field = document.getElementById('new_password');
   const confirm_password_field = document.getElementById('confirm_new_password');
-  const reset_btn = document.querySelector('button[name="submit_reset_password"]');
+  const reset_btn = document.querySelector('button[name="submit_recover_password"]');
   const error_message = document.getElementById('password_error_message');
 
   function validate_form() {
