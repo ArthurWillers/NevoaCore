@@ -44,7 +44,7 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="../actions/logout.php">Deslogar</a></li>
               <li><a class="dropdown-item" href="../actions/recover_password/send_email_recover_password.php">Alterar Senha</a></li>
-              <li><a class="dropdown-item" href="">Excluir Conta</a></li>
+              <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#excluirContaModal">Excluir Conta</a></li>
             </ul>
           </li>
         </ul>
@@ -52,9 +52,55 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
     </div>
   </nav>
 
+  <!-- Delete account modal -->
+  <div class="modal fade" id="excluirContaModal" tabindex="-1" aria-labelledby="excluirContaModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="excluirContaModalLabel">Excluir Conta</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="excluirContaForm" action="../actions/delete_account.php" method="POST">
+            <div class="mb-3">
+              <label for="confirm_email" class="form-label">Digite seu e-mail para confirmar:</label>
+              <input type="email" class="form-control" name="confirm_email" id="confirm_email" required>
+              <div id="emailFeedback" class="form-text text-danger d-none">O e-mail não confere.</div>
+            </div>
+            <button type="submit" id="deleteAccountBtn" class="btn btn-danger" disabled>Excluir Conta</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <?php include '../includes/footer.php' ?>
   <?php include '../includes/bootstrap_script.php' ?>
   <script src="../assets/js/toast.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const confirmEmailInput = document.getElementById('confirm_email');
+      const deleteBtn = document.getElementById('deleteAccountBtn');
+      const emailFeedback = document.getElementById('emailFeedback');
+      
+      // Get the current logged-in user's email from the PHP session
+      const userEmail = "<?php echo $_SESSION['user_email'] ?? ''; ?>";
+      
+      confirmEmailInput.addEventListener('input', () => {
+        if (confirmEmailInput.value === userEmail) {
+          deleteBtn.disabled = false;
+          emailFeedback.classList.add('d-none');
+        } else {
+          deleteBtn.disabled = true;
+          if (confirmEmailInput.value.trim() !== '') {
+            emailFeedback.classList.remove('d-none');
+          } else {
+            emailFeedback.classList.add('d-none');
+          }
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
