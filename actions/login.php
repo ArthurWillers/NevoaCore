@@ -24,10 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_login'])) {
   // Execute the SQL statement
   $result = mysqli_execute_query($conn, $sql, [$email]);
 
-  // Check if the user exists
+  // Check if the user exists and process the result
   if (mysqli_num_rows($result) > 0) {
-
     $user = mysqli_fetch_assoc($result);
+
+    // Close the database connection
+    close_connection($conn);
 
     // Verify the password
     if (password_verify($password, $user['password'])) {
@@ -54,6 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_login'])) {
     $_SESSION['logged_in'] = false;
     $_SESSION['message'] = 'E-mail ou senha incorretos';
     $_SESSION['message_type'] = 'error';
+    
+    // Close the database connection
+    close_connection($conn);
     header('Location: ../pages/login.php');
     exit();
   }
