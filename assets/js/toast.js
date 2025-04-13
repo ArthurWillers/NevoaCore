@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const toastElement = document.getElementById('toastMessage');
-  if (toastElement) {
-    const toast = new bootstrap.Toast(toastElement);
+  const toast_element = document.getElementById('toastMessage');
+  if (toast_element) {
+    const toast = new bootstrap.Toast(toast_element);
     toast.show();
   }
 });

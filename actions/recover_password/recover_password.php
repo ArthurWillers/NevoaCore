@@ -7,6 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_passwor
   $verification_code = isset($_POST['verification_code']) ? $_POST['verification_code'] : '';
   $new_password = isset($_POST['new_password']) ? $_POST['new_password'] : '';
   $confirm_new_password = isset($_POST['confirm_new_password']) ? $_POST['confirm_new_password'] : '';
+  $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
 
   // Verificar se o e-mail está disponível na sessão
   if (empty($email)) {
@@ -49,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_passwor
   $result = mysqli_execute_query($conn, $sql, [$verification_code, $email]);
   if (mysqli_num_rows($result) > 0) {
     // Atualizar a senha do usuário
-    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
     $sql = "UPDATE user SET password = ? WHERE email = ?";
     mysqli_execute_query($conn, $sql, [$hashed_password, $email]);
 

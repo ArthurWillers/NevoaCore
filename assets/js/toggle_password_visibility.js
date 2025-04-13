@@ -1,5 +1,5 @@
-function toggle_password_visibility(inputID, button) {
-  const input = document.getElementById(inputID);
+function toggle_password_visibility(input_id, button) {
+  const input = document.getElementById(input_id);
   if (input.type === "password") {
       input.type = "text";
       button.innerHTML = '<i class="bi bi-eye"></i>';

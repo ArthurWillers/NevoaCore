@@ -3,13 +3,13 @@ session_start();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
 
-  $username = isset($_POST['username_register']) ? $_POST['username_register'] : '';
+  $username_register = isset($_POST['username_register']) ? $_POST['username_register'] : '';
   $email = isset($_POST['email']) ? $_POST['email'] : '';
-  $password = isset($_POST['password_register']) ? $_POST['password_register'] : '';
-  $confirm_password = isset($_POST['confirm_password_register']) ? $_POST['confirm_password_register'] : '';
+  $password_register = isset($_POST['password_register']) ? $_POST['password_register'] : '';
+  $confirm_password_register = isset($_POST['confirm_password_register']) ? $_POST['confirm_password_register'] : '';
 
   // Validar dados de entrada
-  if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
+  if (empty($username_register) || empty($email) || empty($password_register) || empty($confirm_password_register)) {
     $_SESSION['message'] = 'Todos os campos devem ser preenchidos';
     $_SESSION['message_type'] = 'error';
     header('Location: ../pages/register.php');
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
   }
 
   // Verificar se as senhas coincidem
-  if ($password !== $confirm_password) {
+  if ($password_register !== $confirm_password_register) {
     $_SESSION['message'] = 'As senhas não coincidem';
     $_SESSION['message_type'] = 'error';
     header('Location: ../pages/register.php');
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
 
   // Verificar se o nome de usuário já está cadastrado
   $sql = "SELECT * FROM user WHERE username = ?";
-  $result = mysqli_execute_query($conn, $sql, [$username]);
+  $result = mysqli_execute_query($conn, $sql, [$username_register]);
   if (mysqli_num_rows($result) > 0) {
     $_SESSION['message'] = 'Este nome de usuário já está cadastrado';
     $_SESSION['message_type'] = 'error';
@@ -49,11 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
   }
 
   // Gerar hash da senha
-  $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+  $hashed_password = password_hash($password_register, PASSWORD_BCRYPT);
 
   // Inserir novo usuário no banco de dados
   $sql = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
-  if (mysqli_execute_query($conn, $sql, [$username, $email, $hashed_password])) {
+  if (mysqli_execute_query($conn, $sql, [$username_register, $email, $hashed_password])) {
     // Cadastro realizado com sucesso
     $_SESSION['message'] = 'Cadastro realizado com sucesso';
     $_SESSION['message_type'] = 'success';

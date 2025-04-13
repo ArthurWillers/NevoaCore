@@ -1,24 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const userField = document.querySelector('input[name="username_register"]');
-  const emailField = document.querySelector('input[name="email"]');
-  const passwordField = document.querySelector('input[name="password_register"]');
-  const confirmField = document.querySelector('input[name="confirm_password_register"]');
-  const registerBtn = document.querySelector('button[name="submit_register"]');
-  const errorMessage = document.getElementById('password_error_message');
+  const user_field = document.querySelector('input[name="username_register"]');
+  const email_field = document.querySelector('input[name="email"]');
+  const password_field = document.querySelector('input[name="password_register"]');
+  const confirm_field = document.querySelector('input[name="confirm_password_register"]');
+  const register_btn = document.querySelector('button[name="submit_register"]');
+  const error_message = document.getElementById('password_error_message');
 
-  function validateForm() {
-    const userFilled = userField.value.trim() !== '';
-    const emailFilled = emailField.value.trim() !== '';
-    const passFilled = passwordField.value.trim() !== '';
-    const confirmFilled = confirmField.value.trim() !== '';
-    const allFilled = userFilled && emailFilled && passFilled && confirmFilled;
-    const passwordsMatch = passwordField.value === confirmField.value;
+  function validate_form() {
+    const user_filled = user_field.value.trim() !== '';
+    const email_filled = email_field.value.trim() !== '';
+    const pass_filled = password_field.value.trim() !== '';
+    const confirm_filled = confirm_field.value.trim() !== '';
+    const all_filled = user_filled && email_filled && pass_filled && confirm_filled;
+    const passwords_match = password_field.value === confirm_field.value;
     
-    errorMessage.textContent = passwordsMatch ? '' : 'As senhas não coincidem.';
-    registerBtn.disabled = !(allFilled && passwordsMatch);
+    error_message.textContent = passwords_match ? '' : 'As senhas não coincidem.';
+    register_btn.disabled = !(all_filled && passwords_match);
   }
 
-  [userField, emailField, passwordField, confirmField].forEach(field => {
-    field.addEventListener('input', validateForm);
+  [user_field, email_field, password_field, confirm_field].forEach(field => {
+    field.addEventListener('input', validate_form);
   });
 });

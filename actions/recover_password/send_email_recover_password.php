@@ -4,7 +4,7 @@ session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_password'])) {
-    $email = isset($_POST['email_recover_password']) ? $_POST['email_recover_password'] : '';
+    $email_recover_password = isset($_POST['email_recover_password']) ? $_POST['email_recover_password'] : '';
 } elseif (isset($_SESSION['email_recover_password'])) {
     $email = $_SESSION['email_recover_password'];
     unset($_SESSION['email_recover_password']);
@@ -34,13 +34,13 @@ if (mysqli_num_rows($result) > 0) {
     // Gerar um token único de 8 caracteres
     $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     do {
-        $code = '';
+        $verification_code = '';
         for ($i = 0; $i < 8; $i++) {
-            $code .= $chars[random_int(0, strlen($chars) - 1)];
+            $verification_code .= $chars[random_int(0, strlen($chars) - 1)];
         }
 
         $sql = "SELECT code FROM verification_code WHERE code = ?";
-        $result = mysqli_execute_query($conn, $sql, [$code]);
+        $result = mysqli_execute_query($conn, $sql, [$verification_code]);
         $has_duplicate = mysqli_num_rows($result) > 0;
         mysqli_free_result($result);
     } while ($has_duplicate);
@@ -51,7 +51,7 @@ if (mysqli_num_rows($result) > 0) {
 
     // Inserir o novo código na tabela de códigos de verificação
     $sql = "INSERT INTO verification_code (code, fk_user_email) VALUES (?, ?)";
-    mysqli_execute_query($conn, $sql, [$code, $email]);
+    mysqli_execute_query($conn, $sql, [$verification_code, $email]);
 
     close_connection($conn);
 
@@ -66,7 +66,7 @@ if (mysqli_num_rows($result) > 0) {
     $SMTP_USER = $_ENV['SMTP_USER'];
     $SMTP_PASS = $_ENV['SMTP_PASS'];
 
-    $htmlMessage = '
+    $html_message = '
     <!DOCTYPE html>
     <html lang="pt">
     <head>
@@ -99,7 +99,7 @@ if (mysqli_num_rows($result) > 0) {
         <div class="container">
             <p>Caro usuário,</p>
             <p>Utilize o código abaixo para redefinir sua senha:</p>
-            <p class="code">' . $code . '</p>
+            <p class="code">' . $verification_code . '</p>
             <p>Atenciosamente,</p>
             <p>Equipe NevoaCore</p>
         </div>
@@ -122,8 +122,8 @@ if (mysqli_num_rows($result) > 0) {
     $mail->addReplyTo($SMTP_USER, 'Suporte NevoaCore');
     $mail->addAddress($email);
     $mail->Subject = 'Recuperação de Senha - NevoaCore';
-    $mail->msgHTML($htmlMessage);
-    $mail->AltBody = 'Utilize o código a seguir para redefinir sua senha: ' . $code;
+    $mail->msgHTML($html_message);
+    $mail->AltBody = 'Utilize o código a seguir para redefinir sua senha: ' . $verification_code;
 
     function save_mail($mail) {
         $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';

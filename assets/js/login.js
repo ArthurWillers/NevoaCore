@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const emailField = document.querySelector('input[name="email_login"]');
-  const passwordField = document.querySelector('input[name="password_login"]');
-  const loginBtn = document.querySelector('button[name="submit_login"]');
+  const email_field = document.querySelector('input[name="email_login"]');
+  const password_field = document.querySelector('input[name="password_login"]');
+  const login_btn = document.querySelector('button[name="submit_login"]');
 
-  function toggleButton() {
-    loginBtn.disabled = !emailField.value.trim() || !passwordField.value.trim();
+  function toggle_button() {
+    login_btn.disabled = !email_field.value.trim() || !password_field.value.trim();
   }
 
-  emailField.addEventListener('input', toggleButton);
-  passwordField.addEventListener('input', toggleButton);
+  email_field.addEventListener('input', toggle_button);
+  password_field.addEventListener('input', toggle_button);
 });

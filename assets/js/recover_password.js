@@ -1,22 +1,22 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const codeField = document.querySelector('input[name="verification_code"]');
-  const newPasswordField = document.getElementById('new_password');
-  const confirmPasswordField = document.getElementById('confirm_new_password');
-  const resetBtn = document.querySelector('button[name="submit_reset_password"]');
-  const errorMessage = document.getElementById('password_error_message');
+  const code_field = document.querySelector('input[name="verification_code"]');
+  const new_password_field = document.getElementById('new_password');
+  const confirm_password_field = document.getElementById('confirm_new_password');
+  const reset_btn = document.querySelector('button[name="submit_reset_password"]');
+  const error_message = document.getElementById('password_error_message');
 
-  function validateForm() {
-    const codeFilled = codeField.value.trim().length === 8;
-    const newPassFilled = newPasswordField.value.trim() !== '';
-    const confirmPassFilled = confirmPasswordField.value.trim() !== '';
-    const allFilled = codeFilled && newPassFilled && confirmPassFilled;
-    const passwordsMatch = newPasswordField.value === confirmPasswordField.value;
+  function validate_form() {
+    const code_filled = code_field.value.trim().length === 8;
+    const new_pass_filled = new_password_field.value.trim() !== '';
+    const confirm_pass_filled = confirm_password_field.value.trim() !== '';
+    const all_filled = code_filled && new_pass_filled && confirm_pass_filled;
+    const passwords_match = new_password_field.value === confirm_password_field.value;
     
-    errorMessage.textContent = passwordsMatch ? '' : 'As senhas não coincidem.';
-    resetBtn.disabled = !(allFilled && passwordsMatch);
+    error_message.textContent = passwords_match ? '' : 'As senhas não coincidem.';
+    reset_btn.disabled = !(all_filled && passwords_match);
   }
 
-  codeField.addEventListener('input', validateForm);
-  newPasswordField.addEventListener('input', validateForm);
-  confirmPasswordField.addEventListener('input', validateForm);
+  code_field.addEventListener('input', validate_form);
+  new_password_field.addEventListener('input', validate_form);
+  confirm_password_field.addEventListener('input', validate_form);
 });

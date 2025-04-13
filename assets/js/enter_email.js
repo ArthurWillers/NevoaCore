@@ -1,10 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const emailField = document.querySelector('input[name="email_recover_password"]');
-  const loginBtn = document.querySelector('button[name="submit_recover_password"]');
+  const email_field = document.querySelector('input[name="email_recover_password"]');
+  const login_btn = document.querySelector('button[name="submit_recover_password"]');
 
-  function toggleButton() {
-    loginBtn.disabled = !emailField.value.trim();
+  function toggle_button() {
+    login_btn.disabled = !email_field.value.trim();
   }
 
-  emailField.addEventListener('input', toggleButton);
+  email_field.addEventListener('input', toggle_button);
 });

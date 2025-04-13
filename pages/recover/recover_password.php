@@ -65,6 +65,6 @@
     <script src="../../assets/js/toast.js"></script>
     <script src="../../assets/js/recover_password.js"></script>
     <script src="../../assets/js/toggle_password_visibility.js"></script>
-</body>
+w</body>
 
 </html>

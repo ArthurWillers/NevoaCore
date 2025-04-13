@@ -32,10 +32,10 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
         <img src="../assets/img/nevoa_logo.png" alt="Logo" width="35" height="35" class="d-inline-block">
         <span class="ms-2 align-middle">NévoaCore</span>
       </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_content" aria-controls="navbar_content" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarContent">
+      <div class="collapse navbar-collapse" id="navbar_content">
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown">
@@ -44,7 +44,7 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="../actions/logout.php">Deslogar</a></li>
               <li><a class="dropdown-item" href="../actions/recover_password/send_email_recover_password.php">Alterar Senha</a></li>
-              <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#excluirContaModal">Excluir Conta</a></li>
+              <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#excluir_conta_modal">Excluir Conta</a></li>
             </ul>
           </li>
         </ul>
@@ -53,21 +53,21 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
   </nav>
 
   <!-- Delete account modal -->
-  <div class="modal fade" id="excluirContaModal" tabindex="-1" aria-labelledby="excluirContaModalLabel" aria-hidden="true">
+  <div class="modal fade" id="excluir_conta_modal" tabindex="-1" aria-labelledby="excluir_conta_modal_label" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="excluirContaModalLabel">Excluir Conta</h5>
+          <h5 class="modal-title" id="excluir_conta_modal_label">Excluir Conta</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="excluirContaForm" action="../actions/delete_account.php" method="POST">
+          <form id="excluir_conta_form" action="../actions/delete_account.php" method="POST">
             <div class="mb-3">
               <label for="confirm_email" class="form-label">Digite seu e-mail para confirmar:</label>
               <input type="email" class="form-control" name="delete_confirm_email" id="delete_confirm_email" required>
-              <div id="emailFeedback" class="form-text text-danger d-none">O e-mail não confere.</div>
+              <div id="email_feedback" class="form-text text-danger d-none">O e-mail não confere.</div>
             </div>
-            <button type="submit" id="deleteAccountBtn" class="btn btn-danger" name="delete_submit" disabled>Excluir Conta</button>
+            <button type="submit" id="delete_account_btn" class="btn btn-danger" name="delete_submit" disabled>Excluir Conta</button>
           </form>
         </div>
       </div>
@@ -79,23 +79,21 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
   <script src="../assets/js/toast.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const confirmEmailInput = document.getElementById('delete_confirm_email');
-      const deleteBtn = document.getElementById('deleteAccountBtn');
-      const emailFeedback = document.getElementById('emailFeedback');
+      const confirm_email_input = document.getElementById('delete_confirm_email');
+      const delete_btn = document.getElementById('delete_account_btn');
+      const email_feedback = document.getElementById('email_feedback');
+      const user_email = "<?php echo $_SESSION['user_email'] ?? ''; ?>";
       
-      // Get the current logged-in user's email from the PHP session
-      const userEmail = "<?php echo $_SESSION['user_email'] ?? ''; ?>";
-      
-      confirmEmailInput.addEventListener('input', () => {
-        if (confirmEmailInput.value === userEmail) {
-          deleteBtn.disabled = false;
-          emailFeedback.classList.add('d-none');
+      confirm_email_input.addEventListener('input', () => {
+        if (confirm_email_input.value === user_email) {
+          delete_btn.disabled = false;
+          email_feedback.classList.add('d-none');
         } else {
-          deleteBtn.disabled = true;
-          if (confirmEmailInput.value.trim() !== '') {
-            emailFeedback.classList.remove('d-none');
+          delete_btn.disabled = true;
+          if (confirm_email_input.value.trim() !== '') {
+            email_feedback.classList.remove('d-none');
           } else {
-            emailFeedback.classList.add('d-none');
+            email_feedback.classList.add('d-none');
           }
         }
       });
