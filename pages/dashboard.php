@@ -64,10 +64,10 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
           <form id="excluirContaForm" action="../actions/delete_account.php" method="POST">
             <div class="mb-3">
               <label for="confirm_email" class="form-label">Digite seu e-mail para confirmar:</label>
-              <input type="email" class="form-control" name="confirm_email" id="confirm_email" required>
+              <input type="email" class="form-control" name="delete_confirm_email" id="delete_confirm_email" required>
               <div id="emailFeedback" class="form-text text-danger d-none">O e-mail não confere.</div>
             </div>
-            <button type="submit" id="deleteAccountBtn" class="btn btn-danger" disabled>Excluir Conta</button>
+            <button type="submit" id="deleteAccountBtn" class="btn btn-danger" name="delete_submit" disabled>Excluir Conta</button>
           </form>
         </div>
       </div>
@@ -79,7 +79,7 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
   <script src="../assets/js/toast.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const confirmEmailInput = document.getElementById('confirm_email');
+      const confirmEmailInput = document.getElementById('delete_confirm_email');
       const deleteBtn = document.getElementById('deleteAccountBtn');
       const emailFeedback = document.getElementById('emailFeedback');
       
