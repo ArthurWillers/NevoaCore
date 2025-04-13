@@ -7,6 +7,8 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   header("Location: ../index.php");
   exit();
 }
+
+$_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
 ?>
 
 <!doctype html>
@@ -41,7 +43,7 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="../actions/logout.php">Deslogar</a></li>
-              <li><a class="dropdown-item" href="">Alterar Senha</a></li>
+              <li><a class="dropdown-item" href="../actions/recover_password/send_email_recover_password.php">Alterar Senha</a></li>
               <li><a class="dropdown-item" href="">Excluir Conta</a></li>
             </ul>
           </li>

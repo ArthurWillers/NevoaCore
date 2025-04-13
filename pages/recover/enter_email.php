@@ -1,11 +1,4 @@
-<?php session_start(); 
-
-if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] === true) {
-    $_SESSION['email_recover_password'] = $_SESSION['user_email'];
-    header('Location: ../../actions/recover_password/send_email_recover_password.php');
-    exit();
-}
-?>
+<?php session_start(); ?>
 
 <!doctype html>
 <html lang="pt-BR">
