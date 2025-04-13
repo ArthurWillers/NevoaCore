@@ -2,7 +2,6 @@
 session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_password'])) {
     $email = isset($_POST['email_recover_password']) ? $_POST['email_recover_password'] : '';
