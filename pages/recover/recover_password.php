@@ -54,7 +54,7 @@
 
           <div class="text-center mt-3">
             <span>Lembrou sua senha?</span>
-            <a href="./login.php" class="text-decoration-none cursor-pointer">Voltar para Login</a>
+            <a href="../login.php" class="text-decoration-none cursor-pointer">Voltar para Login</a>
           </div>
         </form>
       </div>
