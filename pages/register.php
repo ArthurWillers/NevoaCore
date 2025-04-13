@@ -28,10 +28,10 @@
 	<div class="container min-vh-100 d-flex align-items-center justify-content-center">
 		<div class="card shadow-lg p-4">
 			<h3 class="text-center mb-4 squada-one-regular">Cadastro</h3>
-			<form method="POST" action="index.php">
+			<form method="POST" action="../actions/register.php">
 
 				<div class="input-group mb-3">
-					<input type="text" name="user_name_register" class="form-control" placeholder="Digite seu nome de usuário" maxlength="255" required>
+					<input type="text" name="username_register" class="form-control" placeholder="Digite seu nome de usuário" maxlength="255" required>
 				</div>
 
 				<div class="input-group mb-3">
