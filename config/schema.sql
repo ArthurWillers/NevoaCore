@@ -32,7 +32,8 @@ CREATE TABLE `user` (
   `username` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `role` set('admin','user') DEFAULT 'user',
-  `created_at` timestamp NULL DEFAULT current_timestamp()
+  `created_at` timestamp NULL DEFAULT current_timestamp(),
+  UNIQUE KEY `unique_username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
