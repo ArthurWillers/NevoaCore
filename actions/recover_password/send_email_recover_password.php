@@ -1,10 +1,14 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 
 use PHPMailer\PHPMailer\PHPMailer;
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_password'])) {
-    $email_recover_password = isset($_POST['email_recover_password']) ? $_POST['email_recover_password'] : '';
+    $email = isset($_POST['email_recover_password']) ? $_POST['email_recover_password'] : '';
 } elseif (isset($_SESSION['email_recover_password'])) {
     $email = $_SESSION['email_recover_password'];
     unset($_SESSION['email_recover_password']);
@@ -125,13 +129,14 @@ if (mysqli_num_rows($result) > 0) {
     $mail->msgHTML($html_message);
     $mail->AltBody = 'Utilize o código a seguir para redefinir sua senha: ' . $verification_code;
 
-    function save_mail($mail) {
-        $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
-        $imapStream = imap_open($path, $mail->Username, $mail->Password);
-        $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
-        imap_close($imapStream);
-        return $result;
-    }
+    // Removido o uso da função save_mail baseada em IMAP
+    // function save_mail($mail) {
+    //     $path = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+    //     $imapStream = imap_open($path, $mail->Username, $mail->Password);
+    //     $result = imap_append($imapStream, $path, $mail->getSentMIMEMessage());
+    //     imap_close($imapStream);
+    //     return $result;
+    // }
 
     if (!$mail->send()) {
         $_SESSION['message'] = 'Erro ao enviar e-mail: ' . $mail->ErrorInfo;
@@ -139,12 +144,13 @@ if (mysqli_num_rows($result) > 0) {
         header('Location: ../../pages/recover/enter_email.php');
         exit();
     }
-    
-    save_mail($mail);
+
+    // Chamadas ao save_mail() foram removidas
+
     $_SESSION['email_recover_password'] = $email;
     $_SESSION['message'] = 'Foi enviado no seu e-mail um código para redefinir sua senha';
     $_SESSION['message_type'] = 'success';
-    header('Location: ../../pages/recover/reset_password.php');
+    header('Location: ../../pages/recover/recover_password.php');
     exit();
 } else {
     close_connection($conn);
