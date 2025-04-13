@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const userField = document.querySelector('input[name="user_name_register"]');
+  const userField = document.querySelector('input[name="username_register"]');
   const emailField = document.querySelector('input[name="email"]');
   const passwordField = document.querySelector('input[name="password_register"]');
   const confirmField = document.querySelector('input[name="confirm_password_register"]');
