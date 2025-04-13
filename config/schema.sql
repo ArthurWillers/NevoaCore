@@ -29,8 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `user` (
   `email` varchar(255) NOT NULL,
-  `username` varchar(255) DEFAULT NULL,
-  `password` char(128) DEFAULT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `role` set('admin','user') DEFAULT 'user',
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -44,7 +44,7 @@ CREATE TABLE `user` (
 CREATE TABLE `verification_code` (
   `code` char(8) NOT NULL,
   `created_at` timestamp NULL DEFAULT current_timestamp(),
-  `fk_user_email` varchar(255) DEFAULT NULL
+  `fk_user_email` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -78,7 +78,7 @@ DELIMITER $$
 --
 -- Events
 --
-CREATE DEFINER=`root`@`localhost` EVENT `clear_expired_codes` ON SCHEDULE EVERY 1 MINUTE STARTS '2025-04-08 16:39:45' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM verification_code
+CREATE DEFINER=`root`@`localhost` EVENT `clear_expired_codes` ON SCHEDULE EVERY 1 SECOND STARTS '2025-04-08 16:39:45' ON COMPLETION NOT PRESERVE ENABLE DO DELETE FROM verification_code
   WHERE created_at < (NOW() - INTERVAL 3 MINUTE)$$
 
 DELIMITER ;
