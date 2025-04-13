@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_passwor
     exit();
 }
 
-// Validate the email
+// Validar o e-mail
 if (empty($email)) {
     $_SESSION['message'] = 'O campo de E-mail deve ser preenchido';
     $_SESSION['message_type'] = 'error';
@@ -23,15 +23,15 @@ if (empty($email)) {
     exit();
 }
 
-// Open the database connection
+// Abrir a conexão com o banco de dados
 include '../../config/db_connection.php';
 $conn = open_connection();
 
-// Check if the email exists in the user table
+// Verificar se o e-mail existe na tabela de usuários
 $sql = "SELECT * FROM user WHERE email = ?";
 $result = mysqli_execute_query($conn, $sql, [$email]);
 if (mysqli_num_rows($result) > 0) {
-    // Generate a unique 8-character token
+    // Gerar um token único de 8 caracteres
     $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
     do {
         $code = '';
@@ -45,18 +45,17 @@ if (mysqli_num_rows($result) > 0) {
         mysqli_free_result($result);
     } while ($has_duplicate);
 
-    // Delete the previous code, if it exists
+    // Excluir o código anterior, se existir
     $sql = "DELETE FROM verification_code WHERE fk_user_email = ?";
     mysqli_execute_query($conn, $sql, [$email]);
 
-    // Insert the new code into the verification_code table
+    // Inserir o novo código na tabela de códigos de verificação
     $sql = "INSERT INTO verification_code (code, fk_user_email) VALUES (?, ?)";
     mysqli_execute_query($conn, $sql, [$code, $email]);
 
     close_connection($conn);
 
-    // Send the email
-
+    // Enviar o e-mail
     include '../../vendor/autoload.php';
 
     $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../config'); 
@@ -108,7 +107,7 @@ if (mysqli_num_rows($result) > 0) {
     </html>
     ';
 
-    //Create a new PHPMailer instance
+    // Criar uma nova instância do PHPMailer
     $mail = new PHPMailer();
 
     $mail->isSMTP();

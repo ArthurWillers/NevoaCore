@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_login'])) {
   $email = isset($_POST['email_login']) ? $_POST['email_login'] : '';
   $password = isset($_POST['password_login']) ? $_POST['password_login'] : '';
 
-  // Validate input
+  // Validar os campos de entrada
   if (empty($email) || empty($password)) {
     $_SESSION['message'] = 'Todos os campos devem ser preenchidos';
     $_SESSION['message_type'] = 'error';
@@ -14,26 +14,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_login'])) {
     exit();
   }
 
-  // opening the database connection
+  // Abrir a conexão com o banco de dados
   include  '../config/db_connection.php';
   $conn = open_connection();
 
-  // Prepare the SQL statement
+  // Preparar a instrução SQL
   $sql = "SELECT * FROM user WHERE email = ?";
 
-  // Execute the SQL statement
+  // Executar a instrução SQL
   $result = mysqli_execute_query($conn, $sql, [$email]);
 
-  // Check if the user exists and process the result
+  // Verificar se o usuário existe e processar o resultado
   if (mysqli_num_rows($result) > 0) {
     $user = mysqli_fetch_assoc($result);
 
-    // Close the database connection
+    // Fechar a conexão com o banco de dados
     close_connection($conn);
 
-    // Verify the password
+    // Verificar a senha
     if (password_verify($password, $user['password'])) {
-      // Sucefully Login
+      // Login realizado com sucesso
       session_unset();
       $_SESSION['user_email'] = $email;
       $_SESSION['logged_in'] = true;
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_login'])) {
       header('Location: ../pages/dashboard.php');
       exit();
     } else {
-      // Failed Login
+      // Falha no login
       session_unset();
       $_SESSION['logged_in'] = false;
       $_SESSION['message'] = 'E-mail ou senha incorretos';
@@ -51,13 +51,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_login'])) {
       exit();
     }
   } else {
-    // Failed Login
+    // Falha no login
     session_unset();
     $_SESSION['logged_in'] = false;
     $_SESSION['message'] = 'E-mail ou senha incorretos';
     $_SESSION['message_type'] = 'error';
 
-    // Close the database connection
+    // Fechar a conexão com o banco de dados
     close_connection($conn);
     header('Location: ../pages/login.php');
     exit();

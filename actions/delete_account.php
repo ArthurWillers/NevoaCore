@@ -1,5 +1,7 @@
 <?php 
 session_start();
+
+// Verificar se o usuário está logado
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   session_unset();
   $_SESSION['message'] = "Você não está logado. Faça login para deletar a conta.";
@@ -9,14 +11,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_submit'])) {
-  // opening the database connection
+  // Abrir a conexão com o banco de dados
   include '../config/db_connection.php';
   $conn = open_connection();
 
-  // Prepare the SQL statement
+  // Preparar a instrução SQL
   $sql = "DELETE FROM user WHERE email = ?";
 
-  // Check if the user exists and process the result
+  // Verificar se o usuário existe e processar o resultado
   if (mysqli_execute_query($conn, $sql, [$_SESSION['user_email']])) {
     session_unset();
     $_SESSION['message'] = 'Conta excluída com sucesso';
@@ -37,6 +39,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_submit'])) {
   header('Location: ../index.php');
   exit();
 }
-
-
 ?>

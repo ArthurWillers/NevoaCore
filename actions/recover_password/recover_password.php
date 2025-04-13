@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_passwor
   $new_password = isset($_POST['new_password']) ? $_POST['new_password'] : '';
   $confirm_new_password = isset($_POST['confirm_new_password']) ? $_POST['confirm_new_password'] : '';
 
+  // Verificar se o e-mail está disponível na sessão
   if (empty($email)) {
     $_SESSION['message'] = 'Problema ao recuperar a senha. Tente novamente.';
     $_SESSION['message_type'] = 'error';
@@ -15,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_passwor
     exit();
   }
 
+  // Validar se todos os campos foram preenchidos
   if (empty($verification_code) || empty($new_password) || empty($confirm_new_password)) {
     $_SESSION['message'] = 'Preencha todos os campos';
     $_SESSION['message_type'] = 'error';
@@ -22,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_passwor
     exit();
   }
 
+  // Verificar se as senhas coincidem
   if ($new_password !== $confirm_new_password) {
     $_SESSION['message'] = 'As senhas não coincidem';
     $_SESSION['message_type'] = 'error';
@@ -29,6 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_passwor
     exit();
   }
 
+  // Verificar se o código de verificação tem 8 caracteres
   if (strlen($verification_code) < 8) {
     $_SESSION['message'] = 'O código de verificação deve ter 8 caracteres';
     $_SESSION['message_type'] = 'error';
@@ -36,20 +40,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_passwor
     exit();
   }
 
-  // opening the database connection
+  // Abrir a conexão com o banco de dados
   include  '../config/db_connection.php';
   $conn = open_connection();
 
-  // Check if the verification code exists in the database
+  // Verificar se o código de verificação existe no banco de dados
   $sql = "SELECT * FROM verification_code WHERE code = ? AND fk_user_email = ?";
   $result = mysqli_execute_query($conn, $sql, [$verification_code, $email]);
   if (mysqli_num_rows($result) > 0) {
-    // Update the user's password
+    // Atualizar a senha do usuário
     $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
     $sql = "UPDATE user SET password = ? WHERE email = ?";
     mysqli_execute_query($conn, $sql, [$hashed_password, $email]);
 
-    // Delete the verification code from the database
+    // Excluir o código de verificação do banco de dados
     $sql = "DELETE FROM verification_code WHERE code = ? AND fk_user_email = ?";
     mysqli_execute_query($conn, $sql, [$verification_code, $email]);
 

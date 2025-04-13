@@ -8,8 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
   $password = isset($_POST['password_register']) ? $_POST['password_register'] : '';
   $confirm_password = isset($_POST['confirm_password_register']) ? $_POST['confirm_password_register'] : '';
 
-
-  // Validate input
+  // Validar dados de entrada
   if (empty($username) || empty($email) || empty($password) || empty($confirm_password)) {
     $_SESSION['message'] = 'Todos os campos devem ser preenchidos';
     $_SESSION['message_type'] = 'error';
@@ -17,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
     exit();
   }
 
-  // Check if passwords match
+  // Verificar se as senhas coincidem
   if ($password !== $confirm_password) {
     $_SESSION['message'] = 'As senhas não coincidem';
     $_SESSION['message_type'] = 'error';
@@ -25,11 +24,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
     exit();
   }
 
-  // opening the database connection
+  // Abre a conexão com o banco de dados
   include  '../config/db_connection.php';
   $conn = open_connection();
 
-  // Check if email already exists
+  // Verificar se o e-mail já está cadastrado
   $sql = "SELECT * FROM user WHERE email = ?";
   $result = mysqli_execute_query($conn, $sql, [$email]);
   if (mysqli_num_rows($result) > 0) {
@@ -39,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
     exit();
   }
 
-  // Check if username already exists
+  // Verificar se o nome de usuário já está cadastrado
   $sql = "SELECT * FROM user WHERE username = ?";
   $result = mysqli_execute_query($conn, $sql, [$username]);
   if (mysqli_num_rows($result) > 0) {
@@ -49,19 +48,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
     exit();
   }
 
-  // Hash the password
+  // Gerar hash da senha
   $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-  // Insert new user into the database
+  // Inserir novo usuário no banco de dados
   $sql = "INSERT INTO user (username, email, password) VALUES (?, ?, ?)";
   if (mysqli_execute_query($conn, $sql, [$username, $email, $hashed_password])) {
-    // Sucessfully registered
+    // Cadastro realizado com sucesso
     $_SESSION['message'] = 'Cadastro realizado com sucesso';
     $_SESSION['message_type'] = 'success';
     header('Location: ../pages/login.php');
     exit();
   } else {
-    // Error inserting user
+    // Erro ao cadastrar o usuário
     $_SESSION['message'] = 'Erro ao cadastrar usuário';
     $_SESSION['message_type'] = 'error';
     header('Location: ../pages/register.php');
