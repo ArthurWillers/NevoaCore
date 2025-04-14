@@ -11,6 +11,14 @@ if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_submit'])) {
+  if (!isset($_POST['delete_confirm_email']) || $_POST['delete_confirm_email'] !== $_SESSION['user_email']) {
+    $_SESSION['message'] = 'Erro ao excluir a conta. O e-mail não corresponde ao e-mail da conta.';
+    $_SESSION['message_type'] = 'error';
+    header('Location: ../pages/dashboard.php');
+    exit();
+  }
+
+
   // Abrir a conexão com o banco de dados
   include '../config/db_connection.php';
   $conn = open_connection();
