@@ -1,5 +1,5 @@
 <?php
-session_start();
+include '../../includes/session_start.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_recover_password'])) {
 

@@ -1,5 +1,5 @@
 <?php
-session_start();
+include '../includes/session_start.php';
 include '../config/db_connection.php';
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   session_unset();

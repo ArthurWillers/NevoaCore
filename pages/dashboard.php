@@ -1,5 +1,5 @@
 <?php
-session_start();
+include '../includes/session_start.php';
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
   session_unset();
   $_SESSION['message'] = "Você não está logado. Faça login para acessar o painel.";

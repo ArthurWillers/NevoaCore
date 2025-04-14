@@ -1,5 +1,5 @@
 <?php 
-session_start();
+include '../includes/session_start.php';
 
 // Verificar se o usuário está logado
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {

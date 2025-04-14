@@ -1,5 +1,5 @@
 <?php
-session_start();
+include '../../includes/session_start.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 
