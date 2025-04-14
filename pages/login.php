@@ -27,31 +27,35 @@
   </nav>
 
   <div class="container min-vh-100 d-flex align-items-center justify-content-center">
-    <div class="card shadow-lg p-4">
-      <h3 class="text-center mb-4">Login</h3>
-      <form method="POST" action="../actions/login.php">
+    <div class="row w-100">
+      <div class="col-md-8 col-lg-6 col-xl-4 mx-auto">
+        <div class="card shadow-lg p-4">
+          <h3 class="text-center mb-4">Login</h3>
+          <form method="POST" action="../actions/login.php">
 
-        <div class="input-group mb-3">
-          <input type="email" name="email_login" class="form-control" placeholder="Digite seu E-mail" required>
-        </div>
+            <div class="input-group mb-3">
+              <input type="email" name="email_login" class="form-control" placeholder="Digite seu E-mail" required>
+            </div>
 
-        <div class="input-group">
-          <input id="password_login" type="password" name="password_login" class="form-control" placeholder="Digite sua senha" required>
-          <button class="btn btn-outline-secondary" type="button" onclick="toggle_password_visibility('password_login', this)">
-            <i class="bi bi-eye-slash"></i>
-          </button>
-        </div>
-        <div class="form-text">
-          <a href="./recover/enter_email.php" class="text-decoration-none">Esqueceu sua senha?</a>
-        </div>
+            <div class="input-group">
+              <input id="password_login" type="password" name="password_login" class="form-control" placeholder="Digite sua senha" required>
+              <button class="btn btn-outline-secondary" type="button" onclick="toggle_password_visibility('password_login', this)">
+                <i class="bi bi-eye-slash"></i>
+              </button>
+            </div>
+            <div class="form-text">
+              <a href="./recover/enter_email.php" class="text-decoration-none">Esqueceu sua senha?</a>
+            </div>
 
-        <button type="submit" name="submit_login" class="btn btn-primary w-100 mt-3" disabled>Entrar</button>
+            <button type="submit" name="submit_login" class="btn btn-primary w-100 mt-3" disabled>Entrar</button>
 
-        <div class="text-center mt-3">
-          <span>Ainda não tem uma conta?</span>
-          <a href="./register.php" class="text-decoration-none cursor-pointer">Cadastre-se</a>
+            <div class="text-center mt-3">
+              <span>Ainda não tem uma conta?</span>
+              <a href="./register.php" class="text-decoration-none cursor-pointer">Cadastre-se</a>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
   </div>
 

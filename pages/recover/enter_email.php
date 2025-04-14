@@ -26,14 +26,18 @@
   </nav>
 
   <div class="container min-vh-100 d-flex align-items-center justify-content-center">
-    <div class="card shadow-lg p-4">
-      <h3 class="text-center mb-4">Alterar Senha</h3>
-      <form method="POST" action="../../actions/recover_password/send_email_recover_password.php">
-        <div class="input-group mb-3">
-          <input type="email" name="email_recover_password" class="form-control" placeholder="Digite seu E-mail" required>
+    <div class="row w-100">
+        <div class="col-md-8 col-lg-6 col-xl-4 mx-auto">
+            <div class="card shadow-lg p-4">
+                <h3 class="text-center mb-4">Alterar Senha</h3>
+                <form method="POST" action="../../actions/recover_password/send_email_recover_password.php">
+                    <div class="input-group mb-3">
+                        <input type="email" name="email_recover_password" class="form-control" placeholder="Digite seu E-mail" required>
+                    </div>
+                    <button type="submit" name="submit_recover_password" class="btn btn-primary w-100" disabled>Prosseguir</button>
+                </form>
+            </div>
         </div>
-        <button type="submit" name="submit_recover_password" class="btn btn-primary w-100" disabled>Entrar</button>
-      </form>
     </div>
   </div>
 

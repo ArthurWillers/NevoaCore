@@ -26,37 +26,41 @@
     </nav>
 
     <div class="container min-vh-100 d-flex align-items-center justify-content-center">
-      <div class="card shadow-lg p-4">
-        <h3 class="text-center mb-4">Redefinir Senha</h3>
-        <form method="POST" action="../../actions/recover_password/recover_password.php">
+        <div class="row w-100">
+            <div class="col-md-8 col-lg-6 col-xl-4 mx-auto">
+                <div class="card shadow-lg p-4">
+                    <h3 class="text-center mb-4">Redefinir Senha</h3>
+                    <form method="POST" action="../../actions/recover_password/recover_password.php">
+                      
+                      <div class="input-group mb-3">
+                        <input type="text" name="verification_code" class="form-control" placeholder="Digite o código de verificação" maxlength="8" required>
+                      </div>
           
-          <div class="input-group mb-3">
-            <input type="text" name="verification_code" class="form-control" placeholder="Digite o código de verificação" maxlength="8" required>
-          </div>
-
-          <div class="input-group mb-3">
-            <input id="new_password" type="password" name="new_password" class="form-control" placeholder="Digite a nova senha" required>
-            <button class="btn btn-outline-secondary" type="button" onclick="toggle_password_visibility('new_password', this)">
-              <i class="bi bi-eye-slash"></i>
-            </button>
-          </div>
-
-          <div class="input-group mb-3">
-            <input id="confirm_new_password" type="password" name="confirm_new_password" class="form-control" placeholder="Confirme a nova senha" required>
-            <button class="btn btn-outline-secondary" type="button" onclick="toggle_password_visibility('confirm_new_password', this)">
-              <i class="bi bi-eye-slash"></i>
-            </button>
-          </div>
-          <div id="password_error_message" class="form-text text-danger"></div>
-
-          <button type="submit" name="submit_recover_password" class="btn btn-primary w-100 mt-3" disabled>Redefinir Senha</button>
-
-          <div class="text-center mt-3">
-            <span>Lembrou sua senha?</span>
-            <a href="../login.php" class="text-decoration-none cursor-pointer">Voltar para Login</a>
-          </div>
-        </form>
-      </div>
+                      <div class="input-group mb-3">
+                        <input id="new_password" type="password" name="new_password" class="form-control" placeholder="Digite a nova senha" required>
+                        <button class="btn btn-outline-secondary" type="button" onclick="toggle_password_visibility('new_password', this)">
+                          <i class="bi bi-eye-slash"></i>
+                        </button>
+                      </div>
+          
+                      <div class="input-group mb-3">
+                        <input id="confirm_new_password" type="password" name="confirm_new_password" class="form-control" placeholder="Confirme a nova senha" required>
+                        <button class="btn btn-outline-secondary" type="button" onclick="toggle_password_visibility('confirm_new_password', this)">
+                          <i class="bi bi-eye-slash"></i>
+                        </button>
+                      </div>
+                      <div id="password_error_message" class="form-text text-danger"></div>
+          
+                      <button type="submit" name="submit_recover_password" class="btn btn-primary w-100 mt-3" disabled>Redefinir Senha</button>
+          
+                      <div class="text-center mt-3">
+                        <span>Lembrou sua senha?</span>
+                        <a href="../login.php" class="text-decoration-none cursor-pointer">Voltar para Login</a>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <?php include '../../includes/footer.php' ?>
@@ -64,6 +68,6 @@
     <script src="../../assets/js/toast.js"></script>
     <script src="../../assets/js/recover_password.js"></script>
     <script src="../../assets/js/toggle_password_visibility.js"></script>
-w</body>
+</body>
 
 </html>
