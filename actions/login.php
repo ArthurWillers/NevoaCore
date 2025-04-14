@@ -36,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_login'])) {
       // Login realizado com sucesso
       session_unset();
       $_SESSION['user_email'] = $email_login;
+      $_SESSION['role'] = $user['role'];
       $_SESSION['logged_in'] = true;
       $_SESSION['message'] = 'Login realizado com sucesso';
       $_SESSION['message_type'] = 'success';
