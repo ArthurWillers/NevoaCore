@@ -52,7 +52,6 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
     </div>
   </nav>
 
-  <!-- Delete account modal -->
   <div class="modal fade" id="excluir_conta_modal" tabindex="-1" aria-labelledby="excluir_conta_modal_label" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -77,28 +76,7 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
   <?php include '../includes/footer.php' ?>
   <?php include '../includes/bootstrap_script.php' ?>
   <script src="../assets/js/toast.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const confirm_email_input = document.getElementById('delete_confirm_email');
-      const delete_btn = document.getElementById('delete_account_btn');
-      const email_feedback = document.getElementById('email_feedback');
-      const user_email = "<?php echo $_SESSION['user_email'] ?? ''; ?>";
-      
-      confirm_email_input.addEventListener('input', () => {
-        if (confirm_email_input.value === user_email) {
-          delete_btn.disabled = false;
-          email_feedback.classList.add('d-none');
-        } else {
-          delete_btn.disabled = true;
-          if (confirm_email_input.value.trim() !== '') {
-            email_feedback.classList.remove('d-none');
-          } else {
-            email_feedback.classList.add('d-none');
-          }
-        }
-      });
-    });
-  </script>
+  <script src="../assets/js/delete_account_modal.js"></script>
 </body>
 
 </html>
