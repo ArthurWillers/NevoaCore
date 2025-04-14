@@ -27,9 +27,7 @@ if ($result) {
   $_SESSION['message_type'] = "danger";
   header("Location: ../pages/dashboard.php");
   exit();
-} 
-
-$_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
+}
 ?>
 
 <!doctype html>
@@ -64,8 +62,7 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="../actions/logout.php">Deslogar</a></li>
-              <li><a class="dropdown-item" href="../actions/recover_password/send_email_recover_password.php">Alterar Senha</a></li>
-              <li><a class="dropdown-item" href="" data-bs-toggle="modal" data-bs-target="#excluir_conta_modal">Excluir Conta</a></li>
+              <li><a class="dropdown-item" href="../pages/dashboard.php">Dashboard</a></li>
             </ul>
           </li>
         </ul>
@@ -73,31 +70,9 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
     </div>
   </nav>
 
-  <div class="modal fade" id="excluir_conta_modal" tabindex="-1" aria-labelledby="excluir_conta_modal_label" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="excluir_conta_modal_label">Excluir Conta</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form id="excluir_conta_form" action="../actions/delete_account.php" method="POST">
-            <div class="mb-3">
-              <label for="confirm_email" class="form-label">Digite seu e-mail para confirmar:</label>
-              <input type="email" class="form-control" name="delete_confirm_email" id="delete_confirm_email" required>
-              <div id="email_feedback" class="form-text text-danger d-none">O e-mail não confere.</div>
-            </div>
-            <button type="submit" id="delete_account_btn" class="btn btn-danger" name="delete_submit" disabled>Excluir Conta</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <?php include '../includes/footer.php' ?>
   <?php include '../includes/bootstrap_script.php' ?>
   <script src="../assets/js/toast.js"></script>
-  <script src="../assets/js/delete_account_modal.js"></script>
 </body>
 
 </html>
