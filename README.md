@@ -17,7 +17,7 @@ O projeto é pensado de forma extensível: os módulos adicionais poderão ser i
 - Recuperação de senha via e-mail  
 - Exclusão de conta  
 - Painel de controle para usuários logados  
-- **Tela de administração para gerenciamento de usuários**  
+- Tela de administração para gerenciamento de usuários  
 
 ---
 
