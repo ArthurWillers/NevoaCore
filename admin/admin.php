@@ -121,9 +121,15 @@ if ($result) {
           </div>
           <div class="modal-body">
             <form action="./admin_update_account.php" method="POST">
+              <!-- Campo mostrando o email atual, apenas leitura -->
               <div class="mb-3">
-                <label class="form-label">Email:</label>
-                <input type="email" class="form-control" id="update_user_info_email" name="update_email" maxlength="255" required>
+                <label class="form-label">Email Atual:</label>
+                <input type="email" class="form-control" id="original_email_display" name="original_email_display" readonly>
+              </div>
+              <!-- Campo opcional para novo email -->
+              <div class="mb-3">
+                <label class="form-label">Novo Email (opcional):</label>
+                <input type="email" class="form-control" id="update_user_info_email" name="update_email" maxlength="255" placeholder="Deixe em branco para não alterar">
               </div>
               <div class="mb-3">
                 <label class="form-label">Nome de Usuário:</label>
@@ -140,6 +146,7 @@ if ($result) {
                 <label class="form-label">Nova Senha (opcional):</label>
                 <input type="text" class="form-control" id="update_user_info_password" name="update_password" placeholder="Deixe em branco para manter">
               </div>
+              <!-- Campo hidden para manter o email original -->
               <input type="hidden" name="original_email" id="original_email">
               <button type="submit" class="btn btn-primary" name="update_submit">Salvar Alterações</button>
             </form>
@@ -188,7 +195,10 @@ if ($result) {
     <script src="../assets/js/toast.js"></script>
     <script>
       function open_update_modal(email, username, role) {
-        document.getElementById("update_user_info_email").value = email;
+        // Exibe o email atual em modo somente leitura
+        document.getElementById("original_email_display").value = email;
+        // Esvazia o campo de novo email para mantê-lo opcional
+        document.getElementById("update_user_info_email").value = "";
         document.getElementById("update_user_info_username").value = username;
         document.getElementById("update_user_info_role").value = role;
         document.getElementById("original_email").value = email;

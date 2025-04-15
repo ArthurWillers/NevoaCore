@@ -31,32 +31,60 @@ if ($result) {
 }
 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_submit'])){
-  $email = $_POST['update_email'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_submit'])) {
+  $old_email = $_POST['original_email'];
+  $new_email = $_POST['update_email']; // agora pode ser vazio
   $username = $_POST['update_username'];
   $role = $_POST['update_role'];
   $password = isset($_POST['update_password']) ? $_POST['update_password'] : null;
-  $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+  $hashed_password = $password ? password_hash($password, PASSWORD_DEFAULT) : null;
 
-  // Verifica se o usuário existe
-  $result = mysqli_execute_query($conn, "SELECT * FROM user WHERE email = ?", [$email]);
-  if (mysqli_num_rows($result) > 0) {
-    // Atualiza o usuário
-    if ($password) {
-      $update_result = mysqli_execute_query($conn, "UPDATE user SET username = ?, role = ?, password = ? WHERE email = ?", [$username, $role, $hashed_password, $email]);
+  mysqli_begin_transaction($conn);
+  try {
+    // Verifica se o novo e-mail foi preenchido
+    if (!empty($new_email)) {
+      if ($password) {
+        mysqli_execute_query(
+          $conn,
+          "UPDATE user SET email = ?, username = ?, role = ?, password = ? WHERE email = ?",
+          [$new_email, $username, $role, $hashed_password, $old_email]
+        );
+      } else {
+        mysqli_execute_query(
+          $conn,
+          "UPDATE user SET email = ?, username = ?, role = ? WHERE email = ?",
+          [$new_email, $username, $role, $old_email]
+        );
+      }
+      // Atualiza o email nas outras tabelas
+      mysqli_execute_query(
+        $conn,
+        "UPDATE verification_code SET fk_user_email = ? WHERE fk_user_email = ?",
+        [$new_email, $old_email]
+      );
     } else {
-      $update_result = mysqli_execute_query($conn, "UPDATE user SET username = ?, role = ? WHERE email = ?", [$username, $role, $email]);
+      // Mantém o mesmo email, atualiza apenas username, role, senha
+      if ($password) {
+        mysqli_execute_query(
+          $conn,
+          "UPDATE user SET username = ?, role = ?, password = ? WHERE email = ?",
+          [$username, $role, $hashed_password, $old_email]
+        );
+      } else {
+        mysqli_execute_query(
+          $conn,
+          "UPDATE user SET username = ?, role = ? WHERE email = ?",
+          [$username, $role, $old_email]
+        );
+      }
     }
 
-    if ($update_result) {
-      $_SESSION['message'] = "Usuário atualizado com sucesso.";
-      $_SESSION['message_type'] = "success";
-    } else {
-      $_SESSION['message'] = "Erro ao atualizar o usuário.";
-      $_SESSION['message_type'] = "danger";
-    }
-  } else {
-    $_SESSION['message'] = "Usuário não encontrado.";
+    mysqli_commit($conn);
+    $_SESSION['message'] = "Usuário atualizado com sucesso.";
+    $_SESSION['message_type'] = "success";
+  } catch (Exception $e) {
+    mysqli_rollback($conn);
+    $_SESSION['message'] = "Erro ao atualizar: " . $e->getMessage();
     $_SESSION['message_type'] = "danger";
   }
   close_connection($conn);
