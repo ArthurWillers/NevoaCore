@@ -94,10 +94,10 @@ if ($result) {
               echo "<td>" . htmlspecialchars($row['role']) . "</td>";
               echo "<td class='text-center'>
                       <div class='d-flex justify-content-center gap-2'>
-                        <button class=\"btn btn-primary\" onclick=\"open_update_modal('" . htmlspecialchars($row['email']) . "','" . htmlspecialchars($row['username']) . "','" . htmlspecialchars($row['role']) . "')\">
+                        <button title=\"Editar\" class=\"btn btn-primary\" onclick=\"open_update_modal('" . htmlspecialchars($row['email']) . "','" . htmlspecialchars($row['username']) . "','" . htmlspecialchars($row['role']) . "')\">
                           <i class='bi bi-pencil'></i>
                         </button>
-                        <button class=\"btn btn-danger\" onclick=\"open_delete_modal('" . htmlspecialchars($row['email']) . "','" . htmlspecialchars($row['username']) . "','" . htmlspecialchars($row['role']) . "')\">
+                        <button title=\"Excluir\" class=\"btn btn-danger\" onclick=\"open_delete_modal('" . htmlspecialchars($row['email']) . "','" . htmlspecialchars($row['username']) . "','" . htmlspecialchars($row['role']) . "')\">
                           <i class='bi bi-trash3'></i>
                         </button>
                       </div>
