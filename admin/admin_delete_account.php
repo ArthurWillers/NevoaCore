@@ -15,12 +15,14 @@ $result = mysqli_execute_query($conn, "SELECT role FROM user WHERE email = ?", [
 if ($result) {
   $row = mysqli_fetch_assoc($result);
   if ($row['role'] !== 'admin') {
+    close_connection($conn);
     $_SESSION['message'] = "Você não tem permissão para acessar esta página.";
     $_SESSION['message_type'] = "danger";
     header("Location: ../pages/dashboard.php");
     exit();
   }
 } else {
+  close_connection($conn);
   session_unset();
   $_SESSION['message'] = "Erro ao verificar permissões.";
   $_SESSION['message_type'] = "danger";
