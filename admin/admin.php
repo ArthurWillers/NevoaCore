@@ -111,7 +111,41 @@ if ($result) {
     </div>
 
     <!-- Modal Editar Usuário -->
-
+    <div class="modal fade" id="update_account_modal" tabindex="-1" aria-labelledby="update_account_label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="update_account_label">Editar Dados do Usuário</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="./admin_update_account.php" method="POST">
+              <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="email" class="form-control" id="update_user_info_email" name="update_email" maxlength="255" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Nome de Usuário:</label>
+                <input type="text" class="form-control" id="update_user_info_username" name="update_username" maxlength="255" required>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Cargo:</label>
+                <select class="form-select" id="update_user_info_role" name="update_role" required>
+                  <option value="admin">admin</option>
+                  <option value="user">user</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Nova Senha (opcional):</label>
+                <input type="text" class="form-control" id="update_user_info_password" name="update_password" placeholder="Deixe em branco para manter">
+              </div>
+              <input type="hidden" name="original_email" id="original_email">
+              <button type="submit" class="btn btn-primary" name="update_submit">Salvar Alterações</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Modal Excluir Usuário -->
     <div class="modal fade" id="delete_account_modal" tabindex="-1" aria-labelledby="delete_account_label" aria-hidden="true">
@@ -128,7 +162,7 @@ if ($result) {
                 <input type="text" class="form-control" id="delete_user_info_email" readonly>
               </div>
               <div class="mb-3">
-                <label class="form-label">Usuário:</label>
+                <label class="form-label">Nome de Usuário:</label>
                 <input type="text" class="form-control" id="delete_user_info_username" readonly>
               </div>
               <div class="mb-3">
@@ -153,7 +187,12 @@ if ($result) {
     <script src="../assets/js/toast.js"></script>
     <script>
       function open_update_modal(email, username, role) {
-
+        document.getElementById("update_user_info_email").value = email;
+        document.getElementById("update_user_info_username").value = username;
+        document.getElementById("update_user_info_role").value = role;
+        document.getElementById("original_email").value = email;
+        const modalUpdate = new bootstrap.Modal(document.getElementById("update_account_modal"));
+        modalUpdate.show();
       }
 
       function open_delete_modal(email, username, role) {
