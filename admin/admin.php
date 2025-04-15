@@ -70,9 +70,119 @@ if ($result) {
     </div>
   </nav>
 
-  <?php include '../includes/footer.php' ?>
-  <?php include '../includes/bootstrap_script.php' ?>
-  <script src="../assets/js/toast.js"></script>
+  <div class="container">
+    <h1 class="text-center w-100 py-3">Pagina de Administrador</h1>
+    <div class="row">
+      <div class="col-12">
+        <h2 class="text-center">Gerenciar Usuários</h2>
+        <table class="table table-bordered mt-3 table-striped">
+          <thead class="text-center">
+            <tr>
+              <th scope="col">Email</th>
+              <th scope="col">Nome de Usuário</th>
+              <th scope="col">Cargo</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php
+            $user_query = mysqli_query($conn, "SELECT email, username, role FROM user");
+            while ($row = mysqli_fetch_assoc($user_query)) {
+              echo "<tr>";
+              echo "<td>" . htmlspecialchars($row['email']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['username']) . "</td>";
+              echo "<td>" . htmlspecialchars($row['role']) . "</td>";
+              echo "<td class='text-center'>
+                      <div class='d-flex justify-content-center gap-2'>
+                        <button class=\"btn btn-primary\" onclick=\"open_update_modal('" . htmlspecialchars($row['email']) . "','" . htmlspecialchars($row['username']) . "','" . htmlspecialchars($row['role']) . "')\">
+                          <i class='bi bi-pencil'></i>
+                        </button>
+                        <button class=\"btn btn-danger\" onclick=\"open_delete_modal('" . htmlspecialchars($row['email']) . "','" . htmlspecialchars($row['username']) . "','" . htmlspecialchars($row['role']) . "')\">
+                          <i class='bi bi-trash3'></i>
+                        </button>
+                      </div>
+                    </td>";
+              echo "</tr>";
+            }
+            ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Modal Editar Usuário -->
+
+
+    <!-- Modal Excluir Usuário -->
+    <div class="modal fade" id="delete_account_modal" tabindex="-1" aria-labelledby="delete_account_label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="delete_account_label">Excluir Conta</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="./admin_delete_account.php" method="POST">
+              <div class="mb-3">
+                <label class="form-label">Email:</label>
+                <input type="text" class="form-control" id="delete_user_info_email" readonly>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Usuário:</label>
+                <input type="text" class="form-control" id="delete_user_info_username" readonly>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Cargo:</label>
+                <input type="text" class="form-control" id="delete_user_info_role" readonly>
+              </div>
+              <input type="hidden" name="delete_email" id="delete_email">
+              <div class="mb-3">
+                <label for="delete_confirm_email" class="form-label">Digite o e-mail para confirmar:</label>
+                <input type="email" class="form-control" name="delete_confirm_email" id="delete_confirm_email" required>
+                <div id="email_feedback" class="form-text text-danger d-none">O e-mail não confere.</div>
+              </div>
+              <button type="submit" id="delete_account_btn" class="btn btn-danger" name="delete_submit" disabled>Excluir Conta</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <?php include '../includes/footer.php' ?>
+    <?php include '../includes/bootstrap_script.php' ?>
+    <script src="../assets/js/toast.js"></script>
+    <script>
+      function open_update_modal(email, username, role) {
+
+      }
+
+      function open_delete_modal(email, username, role) {
+        document.getElementById("delete_user_info_email").value = email;
+        document.getElementById("delete_user_info_username").value = username;
+        document.getElementById("delete_user_info_role").value = role;
+        document.getElementById("delete_email").value = email;
+        const modal = new bootstrap.Modal(document.getElementById("delete_account_modal"));
+        modal.show();
+      }
+
+      document.getElementById("delete_confirm_email").addEventListener("input", function() {
+        const typedEmail = this.value;
+        const userEmail = document.getElementById("delete_email").value;
+        const feedback = document.getElementById("email_feedback");
+        const deleteBtn = document.getElementById("delete_account_btn");
+
+        if (typedEmail === "") {
+          feedback.classList.add("d-none");
+          deleteBtn.disabled = true;
+        } else if (typedEmail === userEmail) {
+          feedback.classList.add("d-none");
+          deleteBtn.disabled = false;
+        } else {
+          feedback.classList.remove("d-none");
+          deleteBtn.disabled = true;
+        }
+      });
+    </script>
 </body>
 
 </html>
