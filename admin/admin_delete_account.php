@@ -52,6 +52,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_submit']) && i
     $_SESSION['message_type'] = "danger";
   }
 
+  if ($_SESSION['user_email'] === $email) {
+    session_unset();
+    $_SESSION['message'] = "Sua conta foi deletada.";
+    $_SESSION['message_type'] = "danger";
+    header("Location: ../index.php");
+    exit();
+  }
   close_connection($conn);
   header("Location: ./admin.php");
   exit();
