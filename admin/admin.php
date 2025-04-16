@@ -214,7 +214,6 @@ if ($result) {
         document.getElementById("delete_email").value = email;
         document.getElementById("delete_user_info_username").value = username;
         document.getElementById("delete_user_info_role").value = role;
-        document.getElementById("delete_email").value = email;
         const modal = new bootstrap.Modal(document.getElementById("delete_account_modal"));
         modal.show();
       }
