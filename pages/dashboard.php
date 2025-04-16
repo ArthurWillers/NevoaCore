@@ -44,7 +44,7 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="../actions/logout.php">Deslogar</a></li>
               <li><a class="dropdown-item" href="../actions/recover_password/send_email_recover_password.php">Alterar Senha</a></li>
-              <li><button class="dropdown_item btn btn-link"onclick="open_delete_modal('<?php echo $_SESSION['user_email']; ?>')">Excluir Conta</button></li>
+              <li><a class="dropdown-item" href="javascript:void(0);" onclick="open_delete_modal('<?php echo $_SESSION['user_email']; ?>')">Excluir Conta</a></li>
               <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                 <li><a class="dropdown-item" href="../admin/admin.php">Página de Admin</a></li>
               <?php endif; ?>
@@ -63,7 +63,7 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <form id="excluir_conta_form" action="../actions/delete_account.php" method="POST">
+          <form action="../actions/delete_account.php" method="POST">
           <div class="mb-3">
                 <label class="form-label">Email:</label>
                 <input type="text" class="form-control" id="delete_email" name="delete_email" readonly>
