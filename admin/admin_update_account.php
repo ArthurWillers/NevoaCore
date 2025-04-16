@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_submit'])) {
     $check_email_result = mysqli_execute_query(
       $conn,
       "SELECT email FROM user WHERE email = ?",
-      [$_POST['update_username']]
+      [$_POST['update_email']]
     );
     if (mysqli_num_rows($check_email_result) > 0) {
       throw new Exception("O novo email já está sendo utilizado.");
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_submit'])) {
     $check_username_result = mysqli_execute_query(
       $conn,
       "SELECT username FROM user WHERE username = ?",
-      [$_POST['update_email']]
+      [$_POST['update_username']]
     );
     if (mysqli_num_rows($check_username_result) > 0) {
       throw new Exception("O novo username já está sendo utilizado.");
