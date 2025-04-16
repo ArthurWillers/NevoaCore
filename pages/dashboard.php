@@ -44,7 +44,7 @@ $_SESSION['email_recover_password'] = $_SESSION['user_email'] ?? null;
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="../actions/logout.php">Deslogar</a></li>
               <li><a class="dropdown-item" href="../actions/recover_password/send_email_recover_password.php">Alterar Senha</a></li>
-              <li><a class="dropdown-item" href="javascript:void(0);" onclick="open_delete_modal('<?php echo $_SESSION['user_email']; ?>')">Excluir Conta</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0);" onclick="open_delete_modal('<?php echo htmlspecialchars($_SESSION['user_email']); ?>')">Excluir Conta</a></li>
               <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                 <li><a class="dropdown-item" href="../admin/admin.php">Página de Admin</a></li>
               <?php endif; ?>
