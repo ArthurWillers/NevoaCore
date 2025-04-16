@@ -72,8 +72,9 @@ ALTER TABLE `verification_code`
 --
 -- Constraints for table `verification_code`
 --
+
 ALTER TABLE `verification_code`
-  ADD CONSTRAINT `fk_verification_user` FOREIGN KEY (`fk_user_email`) REFERENCES `user` (`email`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_verification_user` FOREIGN KEY (`fk_user_email`) REFERENCES `user` (`email`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 DELIMITER $$
 --

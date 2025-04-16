@@ -32,51 +32,60 @@ if ($result) {
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_submit'])) {
-  $old_email = $_POST['original_email'];
-  $new_email = $_POST['update_email']; // agora pode ser vazio
-  $username = $_POST['update_username'];
+  if (empty($_POST['original_email']) || empty($_POST['original_username']) || empty($_POST['update_role'])) {
+    close_connection($conn);
+    $_SESSION['message'] = "Erro ao processar a solicitação.";
+    $_SESSION['message_type'] = "danger";
+    header("Location: ./admin.php");
+    exit();
+  }
+  if (empty($_POST['update_email']) && empty($_POST['update_username']) && empty($_POST['update_password'])) {
+    close_connection($conn);
+    $_SESSION['message'] = "Nenhum dado alterado.";
+    $_SESSION['message_type'] = "danger";
+    header("Location: ./admin.php");
+    exit();
+  }
+  if (!filter_var($_POST['update_email'], FILTER_VALIDATE_EMAIL)) {
+    close_connection($conn);
+    $_SESSION['message'] = "Email inválido.";
+    $_SESSION['message_type'] = "danger";
+    header("Location: ./admin.php");
+    exit();
+  }
+
+  $new_email = empty($_POST['update_email']) ? $_POST['original_email'] : $_POST['update_email'];
+  $new_username = empty($_POST['update_username']) ? $_POST['original_username'] : $_POST['update_username'];
   $role = $_POST['update_role'];
-  $password = isset($_POST['update_password']) ? $_POST['update_password'] : null;
-  $hashed_password = $password ? password_hash($password, PASSWORD_DEFAULT) : null;
+  $password = isset($_POST['update_password']) ? password_hash($_POST['update_password'], PASSWORD_DEFAULT) : null;
 
   mysqli_begin_transaction($conn);
   try {
-    // Verifica se o novo e-mail foi preenchido
-    if (!empty($new_email)) {
-      if ($password) {
-        mysqli_execute_query(
-          $conn,
-          "UPDATE user SET email = ?, username = ?, role = ?, password = ? WHERE email = ?",
-          [$new_email, $username, $role, $hashed_password, $old_email]
-        );
-      } else {
-        mysqli_execute_query(
-          $conn,
-          "UPDATE user SET email = ?, username = ?, role = ? WHERE email = ?",
-          [$new_email, $username, $role, $old_email]
-        );
-      }
-      // Atualiza o email nas outras tabelas
-      mysqli_execute_query(
-        $conn,
-        "UPDATE verification_code SET fk_user_email = ? WHERE fk_user_email = ?",
-        [$new_email, $old_email]
-      );
+    // Verifica se o novo email já está em uso
+    $check_email_result = mysqli_execute_query(
+      $conn,
+      "SELECT email FROM user WHERE email = ?",
+      [$_POST['update_username']]
+    );
+    if (mysqli_num_rows($check_email_result) > 0) {
+      throw new Exception("O novo email já está sendo utilizado.");
+    }
+
+    // Verifica se o novo username já está em uso
+    $check_username_result = mysqli_execute_query(
+      $conn,
+      "SELECT username FROM user WHERE username = ?",
+      [$_POST['update_email']]
+    );
+    if (mysqli_num_rows($check_username_result) > 0) {
+      throw new Exception("O novo username já está sendo utilizado.");
+    }
+
+    // Atualiza os dados do usuário
+    if (isset($password)) {
+      mysqli_execute_query($conn, "UPDATE user SET email = ?, username = ?, password = ?, role = ? WHERE email = ?", [$new_email, $new_username, $password, $role, $_POST['original_email']]);
     } else {
-      // Mantém o mesmo email, atualiza apenas username, role, senha
-      if ($password) {
-        mysqli_execute_query(
-          $conn,
-          "UPDATE user SET username = ?, role = ?, password = ? WHERE email = ?",
-          [$username, $role, $hashed_password, $old_email]
-        );
-      } else {
-        mysqli_execute_query(
-          $conn,
-          "UPDATE user SET username = ?, role = ? WHERE email = ?",
-          [$username, $role, $old_email]
-        );
-      }
+      mysqli_execute_query($conn, "UPDATE user SET email = ?, username = ?, role = ? WHERE email = ?", [$new_email, $new_username, $role, $_POST['original_email']]);
     }
 
     mysqli_commit($conn);
@@ -86,6 +95,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_submit'])) {
     mysqli_rollback($conn);
     $_SESSION['message'] = "Erro ao atualizar: " . $e->getMessage();
     $_SESSION['message_type'] = "danger";
+  }
+
+  if ($_SESSION['user_email'] === $_POST['original_email']) {
+    $_SESSION['user_email'] = $new_email;
   }
   close_connection($conn);
   header("Location: ./admin.php");

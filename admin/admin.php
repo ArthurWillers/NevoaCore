@@ -121,19 +121,21 @@ if ($result) {
           </div>
           <div class="modal-body">
             <form action="./admin_update_account.php" method="POST">
-              <!-- Campo mostrando o email atual, apenas leitura -->
               <div class="mb-3">
                 <label class="form-label">Email Atual:</label>
-                <input type="email" class="form-control" id="original_email_display" name="original_email_display" readonly>
+                <input type="email" class="form-control" id="original_email" name="original_email" readonly>
               </div>
-              <!-- Campo opcional para novo email -->
               <div class="mb-3">
                 <label class="form-label">Novo Email (opcional):</label>
-                <input type="email" class="form-control" id="update_user_info_email" name="update_email" maxlength="255" placeholder="Deixe em branco para não alterar">
+                <input type="email" class="form-control" id="update_email" name="update_email" maxlength="255" placeholder="Deixe em branco para não alterar">
               </div>
               <div class="mb-3">
                 <label class="form-label">Nome de Usuário:</label>
-                <input type="text" class="form-control" id="update_user_info_username" name="update_username" maxlength="255" required>
+                <input type="text" class="form-control" id="original_username" name="original_username" maxlength="255" readonly>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Novo Nome de Usuário (opcional):</label>
+                <input type="text" class="form-control" id="update_username" name="update_username" maxlength="255" placeholder="Deixe em branco para não alterar">
               </div>
               <div class="mb-3">
                 <label class="form-label">Cargo:</label>
@@ -146,9 +148,9 @@ if ($result) {
                 <label class="form-label">Nova Senha (opcional):</label>
                 <input type="text" class="form-control" id="update_user_info_password" name="update_password" placeholder="Deixe em branco para manter">
               </div>
-              <!-- Campo hidden para manter o email original -->
-              <input type="hidden" name="original_email" id="original_email">
-              <button type="submit" class="btn btn-primary" name="update_submit">Salvar Alterações</button>
+              <div class="text-end">
+                <button type="submit" class="btn btn-primary" name="update_submit">Salvar Alterações</button>
+              </div>
             </form>
           </div>
         </div>
@@ -167,7 +169,7 @@ if ($result) {
             <form action="./admin_delete_account.php" method="POST">
               <div class="mb-3">
                 <label class="form-label">Email:</label>
-                <input type="text" class="form-control" id="delete_user_info_email" readonly>
+                <input type="text" class="form-control" id="delete_email" name="delete_email" readonly>
               </div>
               <div class="mb-3">
                 <label class="form-label">Nome de Usuário:</label>
@@ -177,13 +179,14 @@ if ($result) {
                 <label class="form-label">Cargo:</label>
                 <input type="text" class="form-control" id="delete_user_info_role" readonly>
               </div>
-              <input type="hidden" name="delete_email" id="delete_email">
               <div class="mb-3">
                 <label for="delete_confirm_email" class="form-label">Digite o e-mail para confirmar:</label>
                 <input type="email" class="form-control" name="delete_confirm_email" id="delete_confirm_email" required>
                 <div id="email_feedback" class="form-text text-danger d-none">O e-mail não confere.</div>
               </div>
-              <button type="submit" id="delete_account_btn" class="btn btn-danger" name="delete_submit" disabled>Excluir Conta</button>
+              <div class="text-end">
+                <button type="submit" id="delete_account_btn" class="btn btn-danger" name="delete_submit" disabled>Excluir Conta</button>
+              </div>
             </form>
           </div>
         </div>
@@ -195,11 +198,10 @@ if ($result) {
     <script src="../assets/js/toast.js"></script>
     <script>
       function open_update_modal(email, username, role) {
-        // Exibe o email atual em modo somente leitura
-        document.getElementById("original_email_display").value = email;
-        // Esvazia o campo de novo email para mantê-lo opcional
-        document.getElementById("update_user_info_email").value = "";
-        document.getElementById("update_user_info_username").value = username;
+        document.getElementById("update_email").value = "";
+        document.getElementById("update_username").value = "";
+        document.getElementById("original_email").value = email;
+        document.getElementById("original_username").value = username;
         document.getElementById("update_user_info_role").value = role;
         document.getElementById("original_email").value = email;
         const modalUpdate = new bootstrap.Modal(document.getElementById("update_account_modal"));
@@ -207,7 +209,9 @@ if ($result) {
       }
 
       function open_delete_modal(email, username, role) {
-        document.getElementById("delete_user_info_email").value = email;
+        document.getElementById("email_feedback").classList.add("d-none");
+        document.getElementById("delete_confirm_email").value = "";
+        document.getElementById("delete_email").value = email;
         document.getElementById("delete_user_info_username").value = username;
         document.getElementById("delete_user_info_role").value = role;
         document.getElementById("delete_email").value = email;
