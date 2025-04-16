@@ -16,6 +16,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit_register'])) {
     exit();
   }
 
+  // Verificar se o email é válido
+  if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $_SESSION['message'] = 'E-mail inválido';
+    $_SESSION['message_type'] = 'error';
+    header('Location: ../pages/register.php');
+    exit();
+  }
+
   // Verificar se as senhas coincidem
   if ($password_register !== $confirm_password_register) {
     $_SESSION['message'] = 'As senhas não coincidem';
