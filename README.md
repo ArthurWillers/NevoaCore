@@ -13,10 +13,9 @@ O projeto é pensado de forma extensível: os módulos adicionais poderão ser i
 ## 📌 Funcionalidades Básicas (Core)
 
 - Registro de usuários  
-- Login com autenticação de sessão  
+- Login  
 - Recuperação de senha via e-mail  
 - Exclusão de conta  
-- Painel de controle para usuários logados  
 - Tela de administração para gerenciamento de usuários  
 
 ---
