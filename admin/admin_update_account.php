@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_submit'])) {
     header("Location: ./admin.php");
     exit();
   }
-  if (!filter_var($_POST['update_email'], FILTER_VALIDATE_EMAIL)) {
+  if (!filter_var($_POST['update_email'], FILTER_VALIDATE_EMAIL) && $_POST['update_email'] !== $_POST['original_email'] && !empty($_POST['update_email'])) {
     close_connection($conn);
     $_SESSION['message'] = "Email inválido.";
     $_SESSION['message_type'] = "danger";
